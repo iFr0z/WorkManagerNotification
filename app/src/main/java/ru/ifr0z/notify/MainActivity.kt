@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
         val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java).addTag(tag)
             .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
 
-        WorkManager.getInstance(this).enqueue(notificationWork)
+        val instanceWorkManager = WorkManager.getInstance(this)
+        instanceWorkManager.cancelAllWorkByTag(tag)
+        instanceWorkManager.enqueue(notificationWork)
     }
 }
