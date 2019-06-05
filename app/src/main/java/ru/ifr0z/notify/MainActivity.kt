@@ -32,17 +32,15 @@ class MainActivity : AppCompatActivity() {
         collapsing_toolbar_l.title = titleNotification
 
         done_fab.setOnClickListener {
-            val currentCalendar = Calendar.getInstance()
-            val specificCalendarToTrigger = Calendar.getInstance()
-            specificCalendarToTrigger.set(
+            val customCalendar = Calendar.getInstance()
+            customCalendar.set(
                 date_p.year, date_p.month, date_p.dayOfMonth, time_p.hour, time_p.minute, 0
             )
-
-            if (specificCalendarToTrigger >= currentCalendar) {
+            val customTime = customCalendar.timeInMillis
+            val currentTime = System.currentTimeMillis()
+            if (customTime >= currentTime) {
                 val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
-                val currentTime = currentTimeMillis()
-                val specificTimeToTrigger = specificCalendarToTrigger.timeInMillis
-                val delay = specificTimeToTrigger - currentTime
+                val delay = customTime - currentTime
                 scheduleNotification(delay, data, NOTIFICATION_ID)
 
                 val titleNotificationSchedule = getString(R.string.notification_schedule_title)
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                     coordinator_l,
                     titleNotificationSchedule + SimpleDateFormat(
                         patternNotificationSchedule, getDefault()
-                    ).format(specificCalendarToTrigger.time).toString(),
+                    ).format(customCalendar.time).toString(),
                     LENGTH_LONG
                 ).show()
             } else {
