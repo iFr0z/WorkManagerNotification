@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             )
             val customTime = customCalendar.timeInMillis
             val currentTime = System.currentTimeMillis()
-            if (customTime >= currentTime) {
+            if (customTime > currentTime) {
                 val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
                 val delay = customTime - currentTime
                 scheduleNotification(delay, data, NOTIFICATION_ID)
