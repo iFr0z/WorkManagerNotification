@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator_l"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_l"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ToolbarWhite">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_l"
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -47,13 +47,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/done_fab"
+        android:id="@+id/doneFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:backgroundTint="@color/colorPrimaryDark"
         app:elevation="8dp"
-        app:layout_anchor="@id/app_bar_l"
+        app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right"
         app:srcCompat="@drawable/ic_done_white_24dp" />
 
@@ -73,7 +73,7 @@
             android:background="@color/colorNull">
 
             <DatePicker
-                android:id="@+id/date_p"
+                android:id="@+id/datePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:calendarViewShown="false"
@@ -82,10 +82,10 @@
                 android:paddingEnd="0dp" />
 
             <ru.ifr0z.notify.custom.TimePickerCustom
-                android:id="@+id/time_p"
+                android:id="@+id/timePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/date_p"
+                android:layout_below="@+id/datePicker"
                 android:timePickerMode="spinner" />
 
         </RelativeLayout>

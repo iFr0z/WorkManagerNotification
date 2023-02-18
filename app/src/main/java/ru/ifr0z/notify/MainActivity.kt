@@ -8,7 +8,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.make
-import kotlinx.android.synthetic.main.activity_main.*
+import ru.ifr0z.notify.databinding.MainActivityBinding
 import ru.ifr0z.notify.work.NotifyWork
 import ru.ifr0z.notify.work.NotifyWork.Companion.NOTIFICATION_ID
 import ru.ifr0z.notify.work.NotifyWork.Companion.NOTIFICATION_WORK
@@ -20,23 +20,31 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = MainActivityBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         userInterface()
     }
 
     private fun userInterface() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
         val titleNotification = getString(R.string.notification_title)
-        collapsing_toolbar_l.title = titleNotification
+        binding.collapsingToolbarLayout.title = titleNotification
 
-        done_fab.setOnClickListener {
+        binding.doneFab.setOnClickListener {
             val customCalendar = Calendar.getInstance()
             customCalendar.set(
-                date_p.year, date_p.month, date_p.dayOfMonth, time_p.hour, time_p.minute, 0
+                binding.datePicker.year,
+                binding.datePicker.month,
+                binding.datePicker.dayOfMonth,
+                binding.timePicker.hour,
+                binding.timePicker.minute, 0
             )
             val customTime = customCalendar.timeInMillis
             val currentTime = currentTimeMillis()
@@ -48,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 val titleNotificationSchedule = getString(R.string.notification_schedule_title)
                 val patternNotificationSchedule = getString(R.string.notification_schedule_pattern)
                 make(
-                    coordinator_l,
+                    binding.coordinatorLayout,
                     titleNotificationSchedule + SimpleDateFormat(
                         patternNotificationSchedule, getDefault()
                     ).format(customCalendar.time).toString(),
@@ -56,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             } else {
                 val errorNotificationSchedule = getString(R.string.notification_schedule_error)
-                make(coordinator_l, errorNotificationSchedule, LENGTH_LONG).show()
+                make(binding.coordinatorLayout, errorNotificationSchedule, LENGTH_LONG).show()
             }
         }
     }
