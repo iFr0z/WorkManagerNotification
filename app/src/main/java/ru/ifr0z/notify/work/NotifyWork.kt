@@ -1,8 +1,10 @@
 package ru.ifr0z.notify.work
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
+import android.app.PendingIntent
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
@@ -15,8 +17,10 @@ import android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION
 import android.media.AudioAttributes.USAGE_NOTIFICATION_RINGTONE
 import android.media.RingtoneManager.TYPE_NOTIFICATION
 import android.media.RingtoneManager.getDefaultUri
+import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
+import android.os.Build.VERSION_CODES.S
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.DEFAULT_ALL
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
@@ -36,6 +40,7 @@ class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, p
         return success()
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotification(id: Int) {
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
@@ -47,7 +52,11 @@ class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, p
         val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_schedule_black_24dp)
         val titleNotification = applicationContext.getString(R.string.notification_title)
         val subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
-        val pendingIntent = getActivity(applicationContext, 0, intent, 0)
+        val pendingIntent = if (SDK_INT >= S) {
+            getActivity(applicationContext, 0, intent, PendingIntent.FLAG_MUTABLE)
+        } else {
+            getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
             .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_schedule_white)
             .setContentTitle(titleNotification).setContentText(subtitleNotification)
