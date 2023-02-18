@@ -8,8 +8,8 @@
     <th>Fire a notification at a certain time</th>
   </tr>
   <tr>
-    <td align="center"><img src="https://wmpics.pics/di-U1S7.gif" width="480" height="800" /></td>
-    <td align="center"><img src="https://wmpics.pics/di-W9UA.gif" width="480" height="800" /></td>
+    <td align="center"><img src="https://miro.medium.com/v2/resize:fit:640/1*UnShJa3ADb27yfcfhkKTkA.gif" width="480" height="800" /></td>
+    <td align="center"><img src="https://miro.medium.com/v2/resize:fit:640/1*zqvEt18-7jWPIEbB9JigLg.gif" width="480" height="800" /></td>
   </tr>
 </table>
 
