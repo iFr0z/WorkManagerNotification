@@ -1,18 +1,20 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 29
+    namespace 'ru.ifr0z.notify'
+    compileSdk 33
+
     defaultConfig {
         applicationId "ru.ifr0z.notify"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,16 +22,18 @@ android {
                     'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    //  Kotlin
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-    //  AndroidX
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.work:work-runtime:2.1.0-alpha02'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.work:work-runtime:2.8.0'
+    implementation 'androidx.work:work-runtime-ktx:2.8.0'
 }
